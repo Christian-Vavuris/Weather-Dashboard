@@ -13,40 +13,32 @@ var getCityName = function() {
         alert("Please enter a city name")
     }
     else {
-    console.log(cityName);
-    // saveCityName(cityName);
-    displaySearchedCities();
+    saveCityName(cityName);
     getCurrentWeatherData()
     cityInputEl.value = "";
-
     }
     return cityName;
 }
 
 //Save the selected name to the Array, add it local storage. Have names persist. 
 
-// var saveCityName = function (city) {
-//     if ()
+var saveCityName = function (city) {
+    var storedCities = localStorage.getItem("cities");
+    let workingArray;
+    if(storedCities === null) {
+        workingArray = []
+    } else {
+        workingArray = JSON.parse(storedCities);
+    }
+     // add city name to array
+    workingArray.push(city);
+    console.log(workingArray)
 
-
-//     // pull array from Local Storage first
-
-//     // console.log(searchedCities)
-
-
-// }
-
-//append the cities in local storage to the ul
-
-var displaySearchedCities = function () {
- for (i=0; i < searchedCities.length; i++) {
-    var nameEl = document.createElement("li");
-    nameEl.classList = "list-group-item";
-    nameEl.innerHTML(searchedCities[i]);
-    cityList.appendChild(nameEl);
- }
-
+    //re-commit to local storage
+    localStorage.setItem("cities", JSON.stringify(workingArray))
 }
+
+
 
 // fetch information from the weather API
 
@@ -55,17 +47,33 @@ var getCurrentWeatherData = function () {
     fetch(
         "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=266f11527048c408054397eabed73286"
     )
-    .then(function(response) {
-        console.log(response)
+    .then(function (response) {
         return response.json();
-    })
-    // now we display it to the HTML
-    .then(function(response) {
+      })
+      // now we display it to the HTML
+      .then(function (data) {
+        console.log(data);
+        document.getElementById("name").innerHTML = data.name;
+        document.getElementById("temp").innerHTML = data.main.temp;
+        document.getElementById("humidity").innerHTML = data.main.humidity;
+        document.getElementById("wind").innerHTML = data.wind.speed;
 
-    })
+      });
+  };
+
+var displayPreviousSearches = function() {
+    var storedCities = localStorage.getItem("cities")
+    var citiesToList = JSON.parse(storedCities);
+    console.log(citiesToList)
+
+    for (i=0; i<citiesToList.length; i++) {
+        var newItem =  document.createElement("li");
+        newItem.className = "list-group-item";
+        var textInput = document.createTextNode(citiesToList[i]);
+        newItem.appendChild(textInput);
+        cityList.appendChild(newItem)
+    }
 }
-
-// display API data to the HTML
 
 
 
@@ -75,3 +83,5 @@ cityButton.addEventListener("click", getCityName)
 cityInputEl.addEventListener("submit", getCityName)
 cityButton.addEventListener("click", getCurrentWeatherData())
 cityInputEl.addEventListener("submit", getCurrentWeatherData())
+
+displayPreviousSearches()
