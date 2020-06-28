@@ -14,26 +14,27 @@ var getCityName = function() {
     }
     else {
     console.log(cityName);
-    saveCityName(cityName);
+    // saveCityName(cityName);
     displaySearchedCities();
+    getCurrentWeatherData()
     cityInputEl.value = "";
 
     }
-    return cityName, getCurrentWeatherData();
+    return cityName;
 }
 
-//Save the selected name to the Array, add it local storage. Have names persist. I can't get it to save to local storage when I dont have an array already in there
+//Save the selected name to the Array, add it local storage. Have names persist. 
 
-var saveCityName = function (city) {
+// var saveCityName = function (city) {
+//     if ()
 
-    // pull array from Local Storage first
-    var retrievedCities = localStorage.getItem('searchedCities');
-    var citiesList = JSON.parse(retrievedCities); 
-    citiesList.push(city);
-    // console.log(searchedCities)
-    localStorage.setItem("searchedCities", JSON.stringify(searchedCities))
 
-}
+//     // pull array from Local Storage first
+
+//     // console.log(searchedCities)
+
+
+// }
 
 //append the cities in local storage to the ul
 
@@ -50,16 +51,23 @@ var displaySearchedCities = function () {
 // fetch information from the weather API
 
 var getCurrentWeatherData = function () {
-    var city = document.getElementById('city-input').value;
+    var city = document.getElementById("city-input").value;
     fetch(
         "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=266f11527048c408054397eabed73286"
     )
     .then(function(response) {
+        console.log(response)
         return response.json();
-    });
+    })
+    // now we display it to the HTML
+    .then(function(response) {
+
+    })
 }
 
 // display API data to the HTML
+
+
 
 // event listener for when the button is clicked (DONE)
 
