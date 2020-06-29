@@ -16,6 +16,7 @@ main {
 div.flex-row {
     display:flex;
     flex-wrap: wrap;
+    width:100%;
 }
 
 div.today-data {
@@ -40,4 +41,8 @@ div.five-day-forecast {
     justify-content: space-between;
     align-content: space-between;
     margin: 0px 5px 0px 5px;
+}
+
+div.hidden-field {
+    visibility:hidden;
 }

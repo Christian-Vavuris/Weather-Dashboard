@@ -15,8 +15,8 @@ var getCityName = function() {
     }
     else {
     saveCityName(cityName);
-    getCurrentWeatherData()
-    fiveDayForecast()
+    getCurrentWeatherData();
+    fiveDayForecast();
     cityInputEl.value = "";
     }
     return cityName;
@@ -66,6 +66,7 @@ var getCurrentWeatherData = function () {
       });
   };
 
+  // Fetch the 5 day forecast
 
 var fiveDayForecast = function () {
     var city = document.getElementById("city-input").value;
@@ -102,6 +103,8 @@ var fiveDayForecast = function () {
         document.getElementById("logo5").src =  "http://openweathermap.org/img/wn/"+ data.list[36].weather[0].icon +"@2x.png"
         document.getElementById("temp5").innerHTML =  Math.floor(((data.list[36].main.temp -273)*1.8)+32) + " degrees farenheight";
         document.getElementById("humid5").innerHTML = data.list[36].main.humidity + "% Humid";
+        //unhide cards
+        unhideCards();
     })
 }
 
@@ -119,12 +122,15 @@ var displayPreviousSearches = function() {
     }
 }
 
-
-
+var unhideCards = function () {
+    document.getElementById("a").classList.remove("hidden-field")
+    console.log("butt");
+}
 // event listener for when the button is clicked (DONE)
 
-cityButton.addEventListener("click", getCityName)
-cityButton.addEventListener("click", getCurrentWeatherData())
-cityInputEl.addEventListener("submit", getCurrentWeatherData())
+cityButton.addEventListener("click", getCityName);
+cityButton.addEventListener("click", getCurrentWeatherData());
+
+
 
 displayPreviousSearches()
