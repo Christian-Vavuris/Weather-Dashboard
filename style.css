@@ -15,3 +15,24 @@ div.flex-row {
     display:flex;
     flex-wrap: wrap;
 }
+
+div.today-data {
+    display:flex;
+    flex-wrap:wrap;
+    
+}
+
+div.current-data {
+    margin-top:10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius:10px;
+    border: 5px solid grey;
+    width: 100%;
+    justify-content: space-between;
+}
+
+div.five-day-forecast {
+    display: flex; 
+    margin: 0px 5px 0px 5px;
+}

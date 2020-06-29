@@ -2,6 +2,7 @@ var cityInputEl = document.getElementById("city-input");
 var cityButton = document.getElementById("button-addon2");
 var cityList = document.getElementById("city-list")
 var placeholderCity = document.getElementById("placeholder-city")
+var today = moment().format('MMMM Do, YYYY')
 var searchedCities = []
 
 
@@ -15,10 +16,13 @@ var getCityName = function() {
     else {
     saveCityName(cityName);
     getCurrentWeatherData()
+    fiveDayForecast()
     cityInputEl.value = "";
     }
     return cityName;
 }
+
+var date = moment().format('MMMM Do, YYYY')
 
 //Save the selected name to the Array, add it local storage. Have names persist. 
 
@@ -32,7 +36,7 @@ var saveCityName = function (city) {
     }
      // add city name to array
     workingArray.push(city);
-    console.log(workingArray)
+    // console.log(workingArray)
 
     //re-commit to local storage
     localStorage.setItem("cities", JSON.stringify(workingArray))
@@ -52,14 +56,49 @@ var getCurrentWeatherData = function () {
       })
       // now we display it to the HTML
       .then(function (data) {
-        console.log(data);
+        // console.log(data);
+        document.getElementById("date").innerHTML = date
         document.getElementById("name").innerHTML = data.name;
-        document.getElementById("temp").innerHTML = data.main.temp;
-        document.getElementById("humidity").innerHTML = data.main.humidity;
-        document.getElementById("wind").innerHTML = data.wind.speed;
+        document.getElementById("temp").innerHTML = Math.floor(((data.main.temp -273)*1.8)+32) + " degrees farenheight";
+        document.getElementById("humidity").innerHTML = (data.main.humidity) + '% humidity';
+        document.getElementById("wind").innerHTML = data.wind.speed + " mph wind speed";
 
       });
   };
+
+
+var fiveDayForecast = function () {
+    var city = document.getElementById("city-input").value;
+    fetch(
+        "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=266f11527048c408054397eabed73286"
+    )
+    .then(function (response) {
+        return response.json();
+      })
+    .then(function (data) {
+        console.log(data);
+        //Card1
+        document.getElementById("ch1").innerHTML = moment().add(1, "days").format('dddd')
+        document.getElementById("temp1").innerHTML =  Math.floor(((data.list[4].main.temp -273)*1.8)+32) + " degrees farenheight";
+        document.getElementById("humid1").innerHTML = data.list[4].main.humidity + "% Humid";
+        //Card2
+        document.getElementById("ch2").innerHTML = moment().add(2, "days").format('dddd')
+        document.getElementById("temp2").innerHTML =  Math.floor(((data.list[12].main.temp -273)*1.8)+32) + " degrees farenheight";
+        document.getElementById("humid2").innerHTML = data.list[12].main.humidity + "% Humid";
+        //Card3
+        document.getElementById("ch3").innerHTML = moment().add(3, "days").format('dddd')
+        document.getElementById("temp3").innerHTML =  Math.floor(((data.list[20].main.temp -273)*1.8)+32) + " degrees farenheight";
+        document.getElementById("humid3").innerHTML = data.list[20].main.humidity + "% Humid";
+        //Card4
+        document.getElementById("ch4").innerHTML = moment().add(4, "days").format('dddd')
+        document.getElementById("temp4").innerHTML =  Math.floor(((data.list[28].main.temp -273)*1.8)+32) + " degrees farenheight";
+        document.getElementById("humid4").innerHTML = data.list[28].main.humidity + "% Humid";
+        //Card5
+        document.getElementById("ch5").innerHTML = moment().add(5, "days").format('dddd')
+        document.getElementById("temp5").innerHTML =  Math.floor(((data.list[36].main.temp -273)*1.8)+32) + " degrees farenheight";
+        document.getElementById("humid5").innerHTML = data.list[36].main.humidity + "% Humid";
+    })
+}
 
 var displayPreviousSearches = function() {
     var storedCities = localStorage.getItem("cities")
