@@ -2,6 +2,7 @@ var cityInputEl = document.getElementById("city-input");
 var cityButton = document.getElementById("button-addon2");
 var cityList = document.getElementById("city-list")
 var placeholderCity = document.getElementById("placeholder-city")
+var clickableCity = document.getElementById("city-link")
 var today = moment().format('MMMM Do, YYYY')
 var searchedCities = []
 
@@ -66,6 +67,17 @@ var getCurrentWeatherData = function () {
       });
   };
 
+  // Fetch the UV Index
+
+  var getUvIndex = function() {
+    var city = document.getElementById("city-input").value;
+    fetch (
+        "http://api.openweathermap.org/data/2.5/uvi?appid={appid}&lat={lat}&lon={lon}"
+    )
+  }
+
+
+
   // Fetch the 5 day forecast
 
 var fiveDayForecast = function () {
@@ -114,8 +126,10 @@ var displayPreviousSearches = function() {
     console.log(citiesToList)
 
     for (i=0; i<citiesToList.length; i++) {
-        var newItem =  document.createElement("li");
+        var newItem =  document.createElement("button");
         newItem.className = "list-group-item";
+        newItem.id = "city-link";
+
         var textInput = document.createTextNode(citiesToList[i]);
         newItem.appendChild(textInput);
         cityList.appendChild(newItem)
@@ -124,12 +138,10 @@ var displayPreviousSearches = function() {
 
 var unhideCards = function () {
     document.getElementById("a").classList.remove("hidden-field")
-    console.log("butt");
 }
 // event listener for when the button is clicked (DONE)
 
 cityButton.addEventListener("click", getCityName);
-cityButton.addEventListener("click", getCurrentWeatherData());
 
 
 
