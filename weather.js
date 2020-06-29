@@ -79,22 +79,27 @@ var fiveDayForecast = function () {
         console.log(data);
         //Card1
         document.getElementById("ch1").innerHTML = moment().add(1, "days").format('dddd')
+        document.getElementById("logo1").src =  "http://openweathermap.org/img/wn/"+ data.list[4].weather[0].icon +"@2x.png"
         document.getElementById("temp1").innerHTML =  Math.floor(((data.list[4].main.temp -273)*1.8)+32) + " degrees farenheight";
         document.getElementById("humid1").innerHTML = data.list[4].main.humidity + "% Humid";
         //Card2
         document.getElementById("ch2").innerHTML = moment().add(2, "days").format('dddd')
+        document.getElementById("logo2").src =  "http://openweathermap.org/img/wn/"+ data.list[12].weather[0].icon +"@2x.png"
         document.getElementById("temp2").innerHTML =  Math.floor(((data.list[12].main.temp -273)*1.8)+32) + " degrees farenheight";
         document.getElementById("humid2").innerHTML = data.list[12].main.humidity + "% Humid";
         //Card3
         document.getElementById("ch3").innerHTML = moment().add(3, "days").format('dddd')
+        document.getElementById("logo3").src =  "http://openweathermap.org/img/wn/"+ data.list[20].weather[0].icon +"@2x.png"
         document.getElementById("temp3").innerHTML =  Math.floor(((data.list[20].main.temp -273)*1.8)+32) + " degrees farenheight";
         document.getElementById("humid3").innerHTML = data.list[20].main.humidity + "% Humid";
         //Card4
         document.getElementById("ch4").innerHTML = moment().add(4, "days").format('dddd')
+        document.getElementById("logo4").src =  "http://openweathermap.org/img/wn/"+ data.list[28].weather[0].icon +"@2x.png"
         document.getElementById("temp4").innerHTML =  Math.floor(((data.list[28].main.temp -273)*1.8)+32) + " degrees farenheight";
         document.getElementById("humid4").innerHTML = data.list[28].main.humidity + "% Humid";
         //Card5
         document.getElementById("ch5").innerHTML = moment().add(5, "days").format('dddd')
+        document.getElementById("logo5").src =  "http://openweathermap.org/img/wn/"+ data.list[36].weather[0].icon +"@2x.png"
         document.getElementById("temp5").innerHTML =  Math.floor(((data.list[36].main.temp -273)*1.8)+32) + " degrees farenheight";
         document.getElementById("humid5").innerHTML = data.list[36].main.humidity + "% Humid";
     })
@@ -119,7 +124,6 @@ var displayPreviousSearches = function() {
 // event listener for when the button is clicked (DONE)
 
 cityButton.addEventListener("click", getCityName)
-cityInputEl.addEventListener("submit", getCityName)
 cityButton.addEventListener("click", getCurrentWeatherData())
 cityInputEl.addEventListener("submit", getCurrentWeatherData())
 

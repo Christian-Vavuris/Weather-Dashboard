@@ -1,4 +1,6 @@
-
+* {
+    list-style-type: none;
+}
 
 .nav {
     background-color: grey;
@@ -30,9 +32,12 @@ div.current-data {
     border: 5px solid grey;
     width: 100%;
     justify-content: space-between;
+    text-align:center;
 }
 
 div.five-day-forecast {
-    display: flex; 
+    display: flex;
+    justify-content: space-between;
+    align-content: space-between;
     margin: 0px 5px 0px 5px;
 }
